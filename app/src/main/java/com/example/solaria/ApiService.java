@@ -10,9 +10,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+
 public class ApiService {
 
-    private static final String API_KEY = BuildConfig.API_KEY;
+    private static final String API_KEY = com.example.solaria.BuildConfig.API_KEY;
 
     public static void getUVData(
             double lat,

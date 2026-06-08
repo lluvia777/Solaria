@@ -18,7 +18,8 @@ android {
         Properties properties = new Properties()
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
-        buildConfigField "String", "API_KEY", "\"${properties.getProperty('MAPS_API_KEY')}\""
+        // Fixed: key name now matches BuildConfig.API_KEY used in ApiService.java
+        buildConfigField "String", "API_KEY", "\"${properties.getProperty('API_KEY', '')}\""
     }
 
     buildFeatures {
@@ -51,4 +52,7 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+
+    // Added: needed for JSONObject in ApiService.java
+    implementation 'org.json:json:20231013'
 }
