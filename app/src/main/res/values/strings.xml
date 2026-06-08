@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SOLARIA</string>
+    <string name="help_question">?</string>
+    <string name="help_title">Help Content</string>
 </resources>

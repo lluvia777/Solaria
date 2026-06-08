@@ -2,4 +2,18 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <color name="text_medium">#757575</color>
+    <color name="text_light">#BDBDBD</color>
+    <color name="text_dark">#212121</color>
+    <color name="warm_pink">#FF7B9C</color>
+    <color name="sun_yellow">#FFD54F</color>
+    <color name="primary_orange">#FF9800</color>
+    <color name="lilac_blue">#9FA8DA</color>
+    <color name="nav_selected_text">#FF9800</color>
+    <color name="nav_unselected_text">#9E9E9E</color>
+    <color name="divider_color">#E0E0E0</color>
+    <color name="background_cream">#FDF0DB</color>
+    <color name="solaria_bg">#FCF0DB</color>
 </resources>
