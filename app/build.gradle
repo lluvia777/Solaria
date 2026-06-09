@@ -50,9 +50,11 @@ dependencies {
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.ext.junit
 
-    implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
 
     // Added: needed for JSONObject in ApiService.java
     implementation 'org.json:json:20231013'
+    // Room Database
+    implementation 'androidx.room:room-runtime:2.6.1'
+    annotationProcessor 'androidx.room:room-compiler:2.6.1'
 }
