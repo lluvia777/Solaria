@@ -6,12 +6,12 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import com.example.solaria.BuildConfig;
+
 
 public class ApiService {
 
 
-    private static final String API_KEY = BuildConfig.API_KEY;
+    private static final String API_KEY ="sk-ant-75e3f5ca82c85553174290f539f9682f";
 
     public interface ApiCallback {
         void onSuccess(double uvIndex, double temperature, String weatherCondition, String locationName);
