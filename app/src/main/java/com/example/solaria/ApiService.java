@@ -46,9 +46,11 @@ public class ApiService {
 
                 String weatherResponse = makeRequest(weatherUrl);
 
-                String uvUrl = "https://api.openweathermap.org/data/2.5/uvi"
+                String uvUrl = "https://api.openweathermap.org/data/3.0/onecall"
                         + "?lat=" + lat
                         + "&lon=" + lon
+                        + "&exclude=minutely,hourly,daily,alerts"
+                        + "&units=metric"
                         + "&appid=" + API_KEY;
 
                 String uvResponse = makeRequest(uvUrl);
@@ -73,7 +75,9 @@ public class ApiService {
                 JSONObject weatherJson = new JSONObject(parts[0]);
                 JSONObject uvJson = new JSONObject(parts[1]);
 
-                double uvIndex = uvJson.getDouble("value");
+                double uvIndex = uvJson
+                        .getJSONObject("current")
+                        .getDouble("uvi");
 
                 double temperature = weatherJson.getJSONObject("main").getDouble("temp");
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    bg_uv_card_gradient.xml
+    UV Index kartı için gradient kenarlık efekti.
+    Dış katman gradient, iç katman beyaz/krem fill.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Gradient border layer -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="135"
+                android:startColor="#A78BFA"
+                android:centerColor="#FB923C"
+                android:endColor="#FBBF24"
+                android:type="linear" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+
+    <!-- Inner white fill (border kalınlığı = 2dp) -->
+    <item
+        android:left="2dp"
+        android:top="2dp"
+        android:right="2dp"
+        android:bottom="2dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#FEFCF8" />
+            <corners android:radius="18dp" />
+        </shape>
+    </item>
+
+</layer-list>

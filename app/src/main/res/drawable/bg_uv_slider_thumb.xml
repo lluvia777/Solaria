@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    bg_uv_slider_thumb.xml
+    Slider üzerindeki turuncu daire thumb göstergesi.
+    Beyaz border ile belirginleştirilmiş.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Dış beyaz halka -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#FFFFFF" />
+        </shape>
+    </item>
+
+    <!-- İç turuncu daire -->
+    <item
+        android:left="3dp"
+        android:top="3dp"
+        android:right="3dp"
+        android:bottom="3dp">
+        <shape android:shape="oval">
+            <solid android:color="#FB923C" />
+        </shape>
+    </item>
+
+</layer-list>

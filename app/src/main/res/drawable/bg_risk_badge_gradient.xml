@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    bg_risk_badge_gradient.xml
+    HIGH RISK badge için pembe → turuncu gradient, büyük yuvarlak köşeler.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <gradient
+        android:angle="0"
+        android:startColor="#F87171"
+        android:endColor="#FB923C"
+        android:type="linear" />
+
+    <corners android:radius="28dp" />
+
+</shape>

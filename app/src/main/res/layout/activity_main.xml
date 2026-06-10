@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -20,111 +19,108 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="16dp">
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            android:paddingTop="22dp"
+            android:paddingBottom="18dp">
 
             <!-- HEADER -->
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp">
+                android:layout_marginBottom="22dp"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/btnMenu"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentStart="true"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:background="@drawable/bg_card_rounded"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:elevation="2dp">
-                    <View android:layout_width="20dp" android:layout_height="2dp" android:layout_marginBottom="4dp" android:background="@color/text_medium" />
-                    <View android:layout_width="20dp" android:layout_height="2dp" android:layout_marginBottom="4dp" android:background="@color/text_medium" />
-                    <View android:layout_width="20dp" android:layout_height="2dp" android:background="@color/text_medium" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="✦"
+                        android:textColor="@color/sun_yellow"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="☀️"
+                        android:textSize="32sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/silkscreen_regular"
+                        android:letterSpacing="0.06"
+                        android:text="SOLARIA"
+                        android:textColor="@color/warm_pink"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="✦"
+                        android:textColor="@color/warm_pink"
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="∿∿" android:textSize="12sp" android:textColor="@color/text_light" android:layout_marginEnd="4dp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="☀️" android:textSize="24sp" android:layout_marginEnd="2dp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SOLARIA" android:fontFamily="@font/silkscreen_regular" android:textSize="24sp" android:textColor="@color/warm_pink" android:letterSpacing="0.05" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="∿∿" android:textSize="12sp" android:textColor="@color/text_light" android:layout_marginStart="4dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:background="@drawable/bg_hello_badge"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="3dp"
-                        android:layout_marginTop="2dp">
-
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="HELLO" android:fontFamily="@font/silkscreen_regular" android:textColor="@color/primary_orange" android:textSize="13sp" android:letterSpacing="0.15" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/btnHelp"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:text="?"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_medium"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_hello_badge"
                     android:gravity="center"
-                    android:background="@drawable/bg_card_rounded"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:elevation="2dp" />
-            </RelativeLayout>
+                    android:paddingLeft="18dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="18dp"
+                    android:paddingBottom="5dp">
 
-            <!-- MAIN UV CARD -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/silkscreen_regular"
+                        android:letterSpacing="0.18"
+                        android:text="HELLO 👋"
+                        android:textColor="@color/primary_orange"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
 
-            <!-- 4 INFO BOXES -->
+            <!-- MAIN CONTENT CARD: left data area + right cat image -->
             <LinearLayout
+                android:id="@+id/mainUvCard"
                 android:layout_width="match_parent"
-                android:layout_height="353dp"
-                android:layout_marginBottom="14dp"
-                android:background="@drawable/bg_uv_card"
-                android:elevation="4dp"
+                android:layout_height="440dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bg_guidance_box"
+                android:elevation="6dp"
                 android:orientation="horizontal"
-                android:padding="14dp">
+                android:padding="14dp"
+                android:weightSum="2">
 
-                <!-- LEFT COLUMN -->
+                <!-- LEFT SIDE -->
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal"
                     android:orientation="vertical">
 
-                    <!-- CURRENT UV INDEX label -->
+                    <!-- Current UV label -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
@@ -132,7 +128,7 @@
                             android:layout_height="wrap_content"
                             android:text="✦ "
                             android:textColor="@color/sun_yellow"
-                            android:textSize="9sp" />
+                            android:textSize="11sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -140,8 +136,8 @@
                             android:fontFamily="@font/silkscreen_regular"
                             android:letterSpacing="0.08"
                             android:text="CURRENT UV INDEX"
-                            android:textColor="@color/text_medium"
-                            android:textSize="9sp"
+                            android:textColor="@color/lilac_blue"
+                            android:textSize="11sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -149,45 +145,154 @@
                             android:layout_height="wrap_content"
                             android:text=" ✦"
                             android:textColor="@color/sun_yellow"
-                            android:textSize="9sp" />
+                            android:textSize="11sp" />
                     </LinearLayout>
 
-                    <!-- UV number box -->
+                    <!-- UV value card -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="138dp"
+                        android:layout_marginBottom="14dp"
+                        android:background="@drawable/bg_uv_card_gradient"
+                        android:elevation="4dp"
+                        android:orientation="vertical"
+                        android:paddingLeft="14dp"
+                        android:paddingTop="12dp"
+                        android:paddingRight="14dp"
+                        android:paddingBottom="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:fontFamily="@font/silkscreen_regular"
+                                android:includeFontPadding="false"
+                                android:text="UV"
+                                android:textColor="@color/lilac_blue"
+                                android:textSize="34sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvUVValue"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/silkscreen_regular"
+                                android:gravity="center"
+                                android:includeFontPadding="false"
+                                android:text="7.5"
+                                android:textColor="@color/primary_orange"
+                                android:textSize="56sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- UV scale bar -->
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="22dp"
+                            android:layout_marginTop="2dp">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="9dp"
+                                android:layout_gravity="center_vertical"
+                                android:background="@drawable/bg_uv_slider_track" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:weightSum="11">
+
+                                <Space
+                                    android:layout_width="0dp"
+                                    android:layout_height="1dp"
+                                    android:layout_weight="7" />
+
+                                <View
+                                    android:id="@+id/uvSliderThumb"
+                                    android:layout_width="18dp"
+                                    android:layout_height="18dp"
+                                    android:background="@drawable/bg_uv_slider_thumb" />
+
+                                <Space
+                                    android:layout_width="0dp"
+                                    android:layout_height="1dp"
+                                    android:layout_weight="4" />
+                            </LinearLayout>
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="5">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/silkscreen_regular"
+                                android:gravity="start"
+                                android:text="0"
+                                android:textColor="@color/text_light"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/silkscreen_regular"
+                                android:gravity="center"
+                                android:text="2"
+                                android:textColor="@color/text_light"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/silkscreen_regular"
+                                android:gravity="center"
+                                android:text="5"
+                                android:textColor="@color/text_light"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/silkscreen_regular"
+                                android:gravity="center"
+                                android:text="7"
+                                android:textColor="@color/text_light"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/silkscreen_regular"
+                                android:gravity="end"
+                                android:text="11+"
+                                android:textColor="@color/text_light"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Risk label -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/bg_uv_number_box"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="4dp"
-                            android:fontFamily="@font/silkscreen_regular"
-                            android:text="UV"
-                            android:textColor="@color/lilac_blue"
-                            android:textSize="28sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvUVValue"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/silkscreen_regular"
-                            android:text="7.5"
-                            android:textColor="@color/primary_orange"
-                            android:textSize="44sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <!-- RISK LEVEL label -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="6dp"
+                        android:layout_marginBottom="8dp"
                         android:gravity="center"
                         android:orientation="horizontal">
 
@@ -196,16 +301,16 @@
                             android:layout_height="wrap_content"
                             android:text="✦ "
                             android:textColor="@color/warm_pink"
-                            android:textSize="10sp" />
+                            android:textSize="11sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/silkscreen_regular"
-                            android:letterSpacing="0.05"
-                            android:text="RISK LEVEL:"
+                            android:letterSpacing="0.06"
+                            android:text="RISK LEVEL"
                             android:textColor="@color/text_medium"
-                            android:textSize="10sp"
+                            android:textSize="11sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -213,176 +318,323 @@
                             android:layout_height="wrap_content"
                             android:text=" ✦"
                             android:textColor="@color/warm_pink"
-                            android:textSize="10sp" />
+                            android:textSize="11sp" />
                     </LinearLayout>
 
                     <!-- Risk badge -->
                     <LinearLayout
+                        android:id="@+id/riskBadge"
                         android:layout_width="match_parent"
-                        android:layout_height="64dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/bg_risk_badge_pink"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="10dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="☀️ "
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:id="@+id/tvRiskLevel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/silkscreen_regular"
-                            android:text="High risk
-                            Apply SUNSCREEN"
-                            android:textColor="@android:color/white"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <!-- Guidance box -->
-                    <LinearLayout
-                        android:layout_width="169dp"
-                        android:layout_height="101dp"
-                        android:background="@drawable/bg_guidance_box"
+                        android:layout_height="88dp"
+                        android:layout_marginBottom="14dp"
+                        android:background="@drawable/bg_risk_badge_gradient"
+                        android:elevation="4dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="8dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="8dp">
+                        android:paddingLeft="18dp"
+                        android:paddingRight="18dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
+                            android:layout_marginEnd="14dp"
+                            android:text="☀️"
+                            android:textSize="34sp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvRiskLevel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/silkscreen_regular"
+                                android:text="HIGH RISK"
+                                android:textColor="@android:color/white"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvRiskSubtitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/silkscreen_regular"
+                                android:letterSpacing="0.08"
+                                android:text="APPLY\nSUNSCREEN"
+                                android:textColor="@android:color/white"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Guidance -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_guidance_box"
+                        android:elevation="2dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="16dp"
+                        android:paddingTop="12dp"
+                        android:paddingRight="16dp"
+                        android:paddingBottom="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="14dp"
                             android:text="🧴"
-                            android:textSize="22sp" />
+                            android:textSize="30sp" />
 
                         <TextView
                             android:id="@+id/tvGuidance"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:lineSpacingExtra="2dp"
-                            android:text="Reapply every\n2 hours while outdoors."
+                            android:lineSpacingExtra="3dp"
+                            android:text="Reapply every\n2 hours while\noutdoors."
                             android:textColor="@color/text_medium"
-                            android:textSize="12sp"
+                            android:textSize="15sp"
                             android:textStyle="bold" />
                     </LinearLayout>
-
                 </LinearLayout>
 
-                <!-- RIGHT: Cat illustration -->
+                <!-- RIGHT SIDE CAT -->
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="0.9"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_cat_frame"
+                    android:elevation="4dp"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/catIllustration"
                         android:layout_width="match_parent"
-                        android:layout_height="339dp"
-                        android:background="@drawable/bg_cat_frame"
+                        android:layout_height="match_parent"
                         android:contentDescription="UV-based Solaria cat visual"
-                        android:scaleType="fitCenter"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/cat_high" />
                 </LinearLayout>
             </LinearLayout>
 
+            <!-- 3 INFO CARDS -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp"
+                android:layout_marginBottom="22dp"
                 android:orientation="horizontal"
-                android:weightSum="4">
+                android:weightSum="3">
 
-                <!-- 1. REAPPLY RULE -->
+                <!-- Apply sunscreen -->
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="158dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:layout_marginEnd="5dp"
                     android:background="@drawable/bg_info_card"
-                    android:elevation="2dp"
-                    android:orientation="vertical"
+                    android:elevation="3dp"
                     android:gravity="center_horizontal"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:paddingLeft="6dp"
-                    android:paddingRight="6dp">
-                    <FrameLayout android:layout_width="44dp" android:layout_height="44dp" android:layout_marginBottom="6dp">
-                        <View android:layout_width="44dp" android:layout_height="44dp" android:background="@drawable/bg_icon_circle_pink" />
-                        <ImageView android:layout_width="26dp" android:layout_height="26dp" android:layout_gravity="center" android:src="@drawable/ic_reapply" android:contentDescription="Reapply icon" />
+                    android:orientation="vertical"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="16dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="14dp">
+
+                    <FrameLayout
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:layout_marginBottom="10dp">
+
+                        <View
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:background="@drawable/bg_icon_circle_pink" />
+
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="Reapply icon"
+                            android:src="@drawable/ic_reapply" />
                     </FrameLayout>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="REAPPLY\nRULE" android:textSize="8sp" android:textStyle="bold" android:textColor="@color/text_light" android:gravity="center" android:letterSpacing="0.05" android:fontFamily="@font/silkscreen_regular" android:layout_marginBottom="6dp" />
-                    <TextView android:id="@+id/tvReapplyRule" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Every 2h" android:textSize="12sp" android:textStyle="bold" android:textColor="@color/warm_pink" android:gravity="center" android:background="@drawable/bg_value_badge_pink" android:paddingTop="5dp" android:paddingBottom="5dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/silkscreen_regular"
+                        android:gravity="center"
+                        android:letterSpacing="0.05"
+                        android:text="APPLY\nSUNSCREEN"
+                        android:textColor="@color/warm_pink"
+                        android:textSize="9sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvReapplyRule"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_value_badge_pink"
+                        android:gravity="center"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:text="Every 2h"
+                        android:textColor="@color/warm_pink"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
-                <!-- 2. TODAY'S WEATHER -->
+                <!-- Today's weather -->
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="158dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:layout_marginEnd="5dp"
                     android:background="@drawable/bg_info_card_selected"
-                    android:elevation="2dp"
-                    android:orientation="vertical"
+                    android:elevation="3dp"
                     android:gravity="center_horizontal"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:paddingLeft="6dp"
-                    android:paddingRight="6dp">
-                    <FrameLayout android:layout_width="44dp" android:layout_height="44dp" android:layout_marginBottom="6dp">
-                        <View android:layout_width="44dp" android:layout_height="44dp" android:background="@drawable/bg_icon_circle_blue" />
-                        <ImageView android:id="@+id/imgWeatherIcon" android:layout_width="28dp" android:layout_height="28dp" android:layout_gravity="center" android:src="@drawable/ic_weather_partly_cloudy" android:contentDescription="Weather icon" />
+                    android:orientation="vertical"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="16dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="14dp">
+
+                    <FrameLayout
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:layout_marginBottom="10dp">
+
+                        <View
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:background="@drawable/bg_icon_circle_blue" />
+
+                        <ImageView
+                            android:id="@+id/imgWeatherIcon"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="Weather icon"
+                            android:src="@drawable/ic_weather_partly_cloudy" />
                     </FrameLayout>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TODAY'S\nWEATHER" android:textSize="8sp" android:textStyle="bold" android:textColor="@color/text_light" android:gravity="center" android:letterSpacing="0.05" android:fontFamily="@font/silkscreen_regular" android:layout_marginBottom="6dp" />
-                    <TextView android:id="@+id/tvWeather" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Partly Cloudy\n28°C" android:textSize="11sp" android:textStyle="bold" android:textColor="@color/lilac_blue" android:gravity="center" android:lineSpacingExtra="2dp" android:background="@drawable/bg_value_badge_blue" android:paddingTop="5dp" android:paddingBottom="5dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/silkscreen_regular"
+                        android:gravity="center"
+                        android:letterSpacing="0.06"
+                        android:text="TODAY'S\nWEATHER"
+                        android:textColor="@color/text_light"
+                        android:textSize="8sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvWeather"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_value_badge_blue"
+                        android:gravity="center"
+                        android:lineSpacingExtra="2dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:text="Partly Cloudy\n26°C"
+                        android:textColor="@color/lilac_blue"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
-
-
-                <!-- 4. LAST UPDATED -->
+                <!-- Last updated -->
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="158dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_info_card"
-                    android:elevation="2dp"
-                    android:orientation="vertical"
+                    android:elevation="3dp"
                     android:gravity="center_horizontal"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:paddingLeft="6dp"
-                    android:paddingRight="6dp">
-                    <FrameLayout android:layout_width="44dp" android:layout_height="44dp" android:layout_marginBottom="6dp">
-                        <View android:layout_width="44dp" android:layout_height="44dp" android:background="@drawable/bg_icon_circle_orange" />
-                        <ImageView android:layout_width="26dp" android:layout_height="26dp" android:layout_gravity="center" android:src="@android:drawable/ic_menu_recent_history" android:contentDescription="Last updated icon" />
+                    android:orientation="vertical"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="16dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="14dp">
+
+                    <FrameLayout
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:layout_marginBottom="10dp">
+
+                        <View
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:background="@drawable/bg_icon_circle_orange" />
+
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="Last updated icon"
+                            android:src="@android:drawable/ic_menu_recent_history" />
                     </FrameLayout>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="LAST\nUPDATED" android:textSize="8sp" android:textStyle="bold" android:textColor="@color/text_light" android:gravity="center" android:letterSpacing="0.05" android:fontFamily="@font/silkscreen_regular" android:layout_marginBottom="6dp" />
-                    <TextView android:id="@+id/tvLastUpdated" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="10:30" android:textSize="12sp" android:textStyle="bold" android:textColor="@color/primary_orange" android:gravity="center" android:background="@drawable/bg_value_badge_orange" android:paddingTop="5dp" android:paddingBottom="5dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/silkscreen_regular"
+                        android:gravity="center"
+                        android:letterSpacing="0.06"
+                        android:text="LAST\nUPDATED"
+                        android:textColor="@color/text_light"
+                        android:textSize="8sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvLastUpdated"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_value_badge_orange"
+                        android:gravity="center"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:text="10:30"
+                        android:textColor="@color/primary_orange"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
-
             </LinearLayout>
 
-            <!-- Hidden legacy views -->
-            <LinearLayout android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone">
-                <ImageView android:id="@+id/uvGaugeImage" android:layout_width="0dp" android:layout_height="0dp" android:contentDescription="Legacy" />
-                <TextView android:id="@+id/tvShade" android:layout_width="0dp" android:layout_height="0dp" android:text="" />
-                <androidx.appcompat.widget.SwitchCompat android:id="@+id/switchReminder" android:layout_width="0dp" android:layout_height="0dp" />
-            </LinearLayout>
+            <!-- Hidden legacy views: keep IDs used by Java code -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone">
 
+                <ImageView
+                    android:id="@+id/uvGaugeImage"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:contentDescription="Legacy UV gauge" />
+
+                <TextView
+                    android:id="@+id/tvShade"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchReminder"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
@@ -390,51 +642,78 @@
     <LinearLayout
         android:id="@+id/bottomNavBar"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="82dp"
         android:layout_alignParentBottom="true"
         android:background="@color/background_cream"
         android:elevation="8dp"
         android:orientation="horizontal"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
+        android:paddingLeft="16dp"
+        android:paddingTop="9dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="10dp">
 
-        <!-- UV Today (SELECTED) -->
         <LinearLayout
             android:id="@+id/tabUvToday"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
             android:layout_weight="1"
-            android:layout_marginEnd="8dp"
-            android:orientation="vertical"
-            android:gravity="center"
             android:background="@drawable/bg_nav_selected_pink"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
             android:clickable="true"
-            android:focusable="true">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="☀️" android:textSize="22sp" android:layout_marginBottom="2dp" />
-            <TextView android:id="@+id/tvNavUvToday" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="UV Today" android:textSize="11sp" android:textStyle="bold" android:textColor="@color/warm_pink" android:fontFamily="@font/silkscreen_regular" />
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="☀️"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/tvNavUvToday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/silkscreen_regular"
+                android:text="UV TODAY"
+                android:textColor="@android:color/white"
+                android:textSize="13sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Settings (UNSELECTED) -->
         <LinearLayout
             android:id="@+id/btnSettings"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
             android:background="@drawable/bg_nav_unselected"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
             android:clickable="true"
-            android:focusable="true">
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_settings_gear" android:contentDescription="Settings" android:layout_marginBottom="2dp" />
-            <TextView android:id="@+id/tvNavProfile" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Settings" android:textSize="11sp" android:textColor="@color/text_medium" android:fontFamily="@font/silkscreen_regular" />
-        </LinearLayout>
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
 
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="Settings"
+                android:src="@drawable/ic_settings_gear" />
+
+            <TextView
+                android:id="@+id/tvNavProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/silkscreen_regular"
+                android:text="SETTINGS"
+                android:textColor="@color/text_medium"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>
