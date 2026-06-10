@@ -8,9 +8,8 @@ public class AppSettingsEntity {
 
 
         @PrimaryKey
-        public int settingsId = 1; // Hep 1 satır
-
+        public int settingsId = 1;
         public boolean notificationsEnabled = false;
-        public String locationPermissionStatus = "UNKNOWN"; // "GRANTED" veya "DENIED"
+        public String locationPermissionStatus = "UNKNOWN";
     }
 

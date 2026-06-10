@@ -6,11 +6,12 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import com.example.solaria.BuildConfig;
 
 public class ApiService {
 
-    // ⚠️ BURAYA KENDİ API KEY'İNİ YAZ
-    private static final String API_KEY = "BURAYA_API_KEY_YAZZ";
+
+    private static final String API_KEY = BuildConfig.API_KEY;
 
     public interface ApiCallback {
         void onSuccess(double uvIndex, double temperature, String weatherCondition, String locationName);
@@ -36,7 +37,6 @@ public class ApiService {
         @Override
         protected String doInBackground(Void... voids) {
             try {
-                // Hava durumu + UV verisi için Current Weather endpoint
                 String weatherUrl = "https://api.openweathermap.org/data/2.5/weather"
                         + "?lat=" + lat
                         + "&lon=" + lon
@@ -46,7 +46,6 @@ public class ApiService {
 
                 String weatherResponse = makeRequest(weatherUrl);
 
-                // UV Index için ayrı endpoint (One Call API 3.0 veya 2.5)
                 String uvUrl = "https://api.openweathermap.org/data/2.5/uvi"
                         + "?lat=" + lat
                         + "&lon=" + lon
@@ -54,7 +53,6 @@ public class ApiService {
 
                 String uvResponse = makeRequest(uvUrl);
 
-                // İki yanıtı birleştirip döndür
                 return weatherResponse + "|||" + uvResponse;
 
             } catch (Exception e) {
@@ -66,7 +64,7 @@ public class ApiService {
         @Override
         protected void onPostExecute(String result) {
             if (result == null || errorMsg != null) {
-                callback.onFailure("API isteği başarısız: " + errorMsg);
+                callback.onFailure("API request failed: " + errorMsg);
                 return;
             }
 
@@ -75,25 +73,21 @@ public class ApiService {
                 JSONObject weatherJson = new JSONObject(parts[0]);
                 JSONObject uvJson = new JSONObject(parts[1]);
 
-                // UV Index
                 double uvIndex = uvJson.getDouble("value");
 
-                // Sıcaklık
                 double temperature = weatherJson.getJSONObject("main").getDouble("temp");
 
-                // Hava durumu açıklaması
                 String weatherCondition = weatherJson
                         .getJSONArray("weather")
                         .getJSONObject(0)
                         .getString("description");
 
-                // Şehir adı
                 String locationName = weatherJson.getString("name");
 
                 callback.onSuccess(uvIndex, temperature, weatherCondition, locationName);
 
             } catch (Exception e) {
-                callback.onFailure("JSON parse hatası: " + e.getMessage());
+                callback.onFailure("JSON parse error: " + e.getMessage());
             }
         }
 
@@ -106,7 +100,7 @@ public class ApiService {
 
             int responseCode = conn.getResponseCode();
             if (responseCode != HttpURLConnection.HTTP_OK) {
-                throw new Exception("HTTP hata kodu: " + responseCode);
+                throw new Exception("HTTP error code: " + responseCode);
             }
 
             BufferedReader reader = new BufferedReader(

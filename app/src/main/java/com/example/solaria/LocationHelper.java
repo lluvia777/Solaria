@@ -45,7 +45,7 @@ public class LocationHelper {
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(context,
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            callback.onLocationError("Konum izni verilmedi.");
+            callback.onLocationError("Location permission denied.");
             return;
         }
 
@@ -56,12 +56,11 @@ public class LocationHelper {
                     if (location != null) {
                         callback.onLocationReceived(location.getLatitude(), location.getLongitude());
                     } else {
-                        // İzin tekrar kontrol et
                         if (ActivityCompat.checkSelfPermission(context,
                                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                                 && ActivityCompat.checkSelfPermission(context,
                                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                            callback.onLocationError("Konum izni yok.");
+                            callback.onLocationError("No access to location.");
                             return;
                         }
                         fusedClient.getLastLocation()
@@ -71,14 +70,14 @@ public class LocationHelper {
                                                 lastLocation.getLatitude(),
                                                 lastLocation.getLongitude());
                                     } else {
-                                        callback.onLocationError("Konum alınamadı. GPS açık mı?");
+                                        callback.onLocationError("Could not get location.");
                                     }
                                 })
                                 .addOnFailureListener(e ->
-                                        callback.onLocationError("Konum hatası: " + e.getMessage()));
+                                        callback.onLocationError("Location error: " + e.getMessage()));
                     }
                 })
                 .addOnFailureListener(e ->
-                        callback.onLocationError("Konum hatası: " + e.getMessage()));
+                        callback.onLocationError("Location error: " + e.getMessage()));
     }
 }

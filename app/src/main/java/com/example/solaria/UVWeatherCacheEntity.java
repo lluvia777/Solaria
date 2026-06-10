@@ -8,7 +8,7 @@ public class UVWeatherCacheEntity {
 
 
         @PrimaryKey
-        public int cacheId = 1; // Hep 1 satır tutacağız, üzerine yazacağız
+        public int cacheId = 1;
 
         public double uvIndex;
         public String riskLevel;
@@ -17,6 +17,6 @@ public class UVWeatherCacheEntity {
         public double temperature;
         public String weatherCondition;
         public String locationName;
-        public String lastUpdated; // "yyyy-MM-dd HH:mm" formatında
+        public String lastUpdated;
     }
 

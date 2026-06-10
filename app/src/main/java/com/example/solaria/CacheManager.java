@@ -22,9 +22,6 @@ public class CacheManager {
             this.db = RoomDatabaseClient.getInstance(context);
         }
 
-        // ——— UV/WEATHER CACHE ———
-
-        // API'den gelen veriyi kaydet (arka planda çalışır)
         public void saveUVData(double uvIndex, double temperature,
                                String weatherCondition, String locationName,
                                String riskLevel, String message, String reapplyRule) {
@@ -49,7 +46,6 @@ public class CacheManager {
             }.execute();
         }
 
-        // Cache'i oku ve callback ile döndür
         public void loadCachedUVData(CacheReadCallback callback) {
             new AsyncTask<Void, Void, UVWeatherCacheEntity>() {
                 @Override
@@ -68,14 +64,10 @@ public class CacheManager {
             }.execute();
         }
 
-        // Cache var mı kontrol et
         public void hasCachedData(CacheReadCallback callback) {
             loadCachedUVData(callback);
         }
 
-        // ——— APP SETTINGS ———
-
-        // Ayarları kaydet
         public void saveSettings(boolean notificationsEnabled, String locationPermissionStatus) {
             new AsyncTask<Void, Void, Void>() {
                 @Override
@@ -89,13 +81,10 @@ public class CacheManager {
                 }
             }.execute();
         }
-
-        // Sadece bildirim tercihini güncelle
         public void setNotificationsEnabled(boolean enabled) {
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... voids) {
-                    // Önce kayıt var mı bak, yoksa oluştur
                     AppSettingsEntity existing = db.appSettingsDao().getSettings();
                     if (existing == null) {
                         AppSettingsEntity entity = new AppSettingsEntity();
@@ -108,8 +97,6 @@ public class CacheManager {
                 }
             }.execute();
         }
-
-        // Konum izni durumunu güncelle
         public void setLocationPermissionStatus(String status) {
             new AsyncTask<Void, Void, Void>() {
                 @Override
@@ -127,7 +114,6 @@ public class CacheManager {
             }.execute();
         }
 
-        // Ayarları oku
         public void loadSettings(SettingsReadCallback callback) {
             new AsyncTask<Void, Void, AppSettingsEntity>() {
                 @Override
@@ -138,7 +124,6 @@ public class CacheManager {
                 @Override
                 protected void onPostExecute(AppSettingsEntity result) {
                     if (result == null) {
-                        // Hiç ayar yoksa default döndür
                         AppSettingsEntity defaults = new AppSettingsEntity();
                         callback.onSettingsLoaded(defaults);
                     } else {
@@ -147,9 +132,6 @@ public class CacheManager {
                 }
             }.execute();
         }
-
-        // ——— YARDIMCI ———
-
         private String getCurrentTime() {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
             return sdf.format(new Date());

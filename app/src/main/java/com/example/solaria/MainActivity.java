@@ -43,14 +43,13 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onCacheLoaded(UVWeatherCacheEntity cache) {
                     runOnUiThread(() -> {
-                        // UI arkadaşı buraya ekrana yazdırma kodunu ekleyecek
                         android.util.Log.d("SOLARIA", "Offline - UV: " + cache.uvIndex);
                     });
                 }
                 @Override
                 public void onCacheEmpty() {
                     runOnUiThread(() ->
-                            android.util.Log.d("SOLARIA", "Offline ve cache boş"));
+                            android.util.Log.d("SOLARIA", "You are offline and no saved data was found."));
                 }
             });
             return;
@@ -72,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
                                 riskLevel, message, reapplyRule);
 
                         runOnUiThread(() -> {
-                            // UI arkadaşı buraya ekrana yazdırma kodunu ekleyecek
                             android.util.Log.d("SOLARIA", "UV: " + uvIndex + " / " + riskLevel);
                         });
                     }
@@ -82,12 +80,12 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onCacheLoaded(UVWeatherCacheEntity cache) {
                                 runOnUiThread(() ->
-                                        android.util.Log.d("SOLARIA", "API hata, cache gösteriliyor"));
+                                        android.util.Log.d("SOLARIA", "Could not update. Showing saved data."));
                             }
                             @Override
                             public void onCacheEmpty() {
                                 runOnUiThread(() ->
-                                        android.util.Log.d("SOLARIA", "API hata ve cache yok"));
+                                        android.util.Log.d("SOLARIA", "Something went wrong and no saved data was found."));
                             }
                         });
                     }
@@ -96,23 +94,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onLocationError(String errorMessage) {
                 runOnUiThread(() ->
-                        android.util.Log.d("SOLARIA", "Konum hatası: " + errorMessage));
+                        android.util.Log.d("SOLARIA", "Location error: " + errorMessage));
             }
         });
     }
 
-    // İzin sonucu
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == LocationHelper.LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == android.content.pm.PackageManager.PERMISSION_GRANTED) {
-                recreate(); // Activity'yi yeniden başlat
+                recreate();
             }
         }
     }
 
-    // RecommendationEngine - UV'ye göre hesaplamalar
     private String getRiskLevel(double uv) {
         if (uv < 3) return "Low";
         else if (uv < 6) return "Moderate";
@@ -122,17 +118,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String getMessage(double uv) {
-        if (uv < 3) return "UV riski düşük.";
-        else if (uv < 6) return "Güneş kremi sür.";
-        else if (uv < 8) return "Güneş kremi ve şapka kullan.";
-        else if (uv < 11) return "Mümkünse gölgede kal.";
-        else return "Dışarı çıkmaktan kaçın!";
+        if (uv < 3) return "Low UV risk.";
+        else if (uv < 6) return "Apply sunscreen.";
+        else if (uv < 8) return "Wear sunscreen and a hat.";
+        else if (uv < 11) return "Stay in the shade if possible.";
+        else return "Avoid going outside!";
     }
 
     private String getReapplyRule(double uv) {
-        if (uv < 3) return "Tekrar uygulama gerekmez.";
-        else if (uv < 6) return "Her 3-4 saatte bir tekrar uygula.";
-        else if (uv < 9) return "Her 2 saatte bir tekrar uygula.";
-        else return "Uygulama zamanlayıcısını başlat.";
+        if (uv < 3) return "No need to reapply.";
+        else if (uv < 6) return "Reapply every 3–4 hours.";
+        else if (uv < 9) return "Reapply every 2 hours.";
+        else return "Start the reapplication timer.";
     }
 }

@@ -12,7 +12,6 @@ public class NetworkHelper {
         this.context = context;
     }
 
-    // İnternet bağlantısı var mı?
     public boolean isNetworkAvailable() {
         ConnectivityManager cm = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);

@@ -17,7 +17,6 @@ import androidx.room.RoomDatabase;
         public abstract UVWeatherCacheDao uvWeatherCacheDao();
         public abstract AppSettingsDao appSettingsDao();
 
-        // Singleton — uygulama boyunca tek instance
         public static synchronized RoomDatabaseClient getInstance(Context context) {
             if (instance == null) {
                 instance = Room.databaseBuilder(
@@ -25,7 +24,7 @@ import androidx.room.RoomDatabase;
                                 RoomDatabaseClient.class,
                                 "solaria_database"
                         )
-                        .fallbackToDestructiveMigration() // versiyon değişirse DB sıfırla
+                        .fallbackToDestructiveMigration()
                         .build();
             }
             return instance;
