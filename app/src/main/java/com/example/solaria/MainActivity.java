@@ -1,7 +1,10 @@
 package com.example.solaria;
+
 import android.content.Intent;
-import android.view.View;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -14,8 +17,14 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    // UI elemanları
     private TextView tvUVValue, tvRiskLevel, tvRiskSubtitle, tvGuidance, tvWeather, tvLastUpdated;
+    private TextView tvReapplyRule;
+
+    private CountDownTimer countDownTimer;
+    private static final String PREFS_NAME = "solaria_timer";
+    private static final String KEY_END_TIME = "timer_end_time";
+
+    private double currentUvIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +32,28 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        // UI elemanlarını bağla
         tvUVValue = findViewById(R.id.tvUVValue);
         tvRiskLevel = findViewById(R.id.tvRiskLevel);
         tvRiskSubtitle = findViewById(R.id.tvRiskSubtitle);
         tvGuidance = findViewById(R.id.tvGuidance);
         tvWeather = findViewById(R.id.tvWeather);
         tvLastUpdated = findViewById(R.id.tvLastUpdated);
+        tvReapplyRule = findViewById(R.id.tvReapplyRule);
+
+        tvReapplyRule.setOnClickListener(v -> {
+            if (isTimerRunning()) {
+                stopTimer();
+            } else {
+                long duration = getTimerDuration(currentUvIndex);
+                if (duration <= 0) {
+                    // UV < 3, timer gerekmiyor
+                    return;
+                }
+                startTimer(duration);
+                NotificationHelper notificationHelper = new NotificationHelper(this);
+                notificationHelper.scheduleNotification(currentUvIndex);
+            }
+        });
 
         View btnSettings = findViewById(R.id.btnSettings);
         btnSettings.setOnClickListener(v -> {
@@ -43,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         ApiService apiService = new ApiService();
 
         loadData(locationHelper, networkHelper, apiService, cacheManager);
+        resumeTimerIfRunning();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -51,33 +76,110 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // API'den gelen veriyi ekrana yaz
+    // SDS'e göre UV değerine göre timer süresi
+    // UV < 3  → timer yok (0)
+    // UV 3-6  → 3.5 saat
+    // UV 6-8  → 2 saat
+    // UV >= 8 → 2 saat (in-app protection timer)
+    private long getTimerDuration(double uv) {
+        if (uv < 3) return 0;
+        else if (uv < 6) return (long) (3.5 * 60 * 60 * 1000);
+        else return 2 * 60 * 60 * 1000L;
+    }
+
+    // Timer bitince gösterilecek varsayılan metin
+    private String getDefaultReapplyText(double uv) {
+        if (uv < 3) return "No need to reapply.";
+        else if (uv < 6) return "Every 3-4h";
+        else return "Every 2h";
+    }
+
+    private void startTimer(long durationMs) {
+        long endTime = System.currentTimeMillis() + durationMs;
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        prefs.edit().putLong(KEY_END_TIME, endTime).apply();
+        runTimer(durationMs);
+    }
+
+    private void resumeTimerIfRunning() {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        long endTime = prefs.getLong(KEY_END_TIME, 0);
+        long remaining = endTime - System.currentTimeMillis();
+        if (remaining > 0) {
+            runTimer(remaining);
+        }
+    }
+
+    private void runTimer(long durationMs) {
+        if (countDownTimer != null) countDownTimer.cancel();
+
+        countDownTimer = new CountDownTimer(durationMs, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long hours = millisUntilFinished / (1000 * 60 * 60);
+                long minutes = (millisUntilFinished % (1000 * 60 * 60)) / (1000 * 60);
+                long seconds = (millisUntilFinished % (1000 * 60)) / 1000;
+                tvReapplyRule.setText(String.format(Locale.getDefault(),
+                        "%02d:%02d:%02d", hours, minutes, seconds));
+            }
+
+            @Override
+            public void onFinish() {
+                tvReapplyRule.setText(getDefaultReapplyText(currentUvIndex));
+                clearTimerPrefs();
+            }
+        }.start();
+    }
+
+    private void stopTimer() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
+        tvReapplyRule.setText(getDefaultReapplyText(currentUvIndex));
+        clearTimerPrefs();
+        NotificationHelper notificationHelper = new NotificationHelper(this);
+        notificationHelper.cancelNotification();
+    }
+
+    private boolean isTimerRunning() {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        long endTime = prefs.getLong(KEY_END_TIME, 0);
+        return endTime > System.currentTimeMillis();
+    }
+
+    private void clearTimerPrefs() {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        prefs.edit().remove(KEY_END_TIME).apply();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (countDownTimer != null) countDownTimer.cancel();
+    }
+
     private void updateUI(double uvIndex, double temperature, String weatherCondition,
                           String riskLevel, String message, String reapplyRule) {
-        // UV değeri - 1 ondalık basamak
+        currentUvIndex = uvIndex;
         tvUVValue.setText(String.format(Locale.US, "%.1f", uvIndex));
-
-        // Risk seviyesi
         tvRiskLevel.setText(riskLevel.toUpperCase());
-
-        // Mesaj (APPLY SUNSCREEN gibi)
         tvRiskSubtitle.setText(message.toUpperCase());
-
-        // Reapply kuralı
         tvGuidance.setText(reapplyRule);
-
-        // Hava durumu + sıcaklık
         String weatherText = capitalize(weatherCondition) + "\n" +
                 String.format(Locale.US, "%.0f°C", temperature);
         tvWeather.setText(weatherText);
-
-        // Son güncelleme saati
         String time = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
         tvLastUpdated.setText(time);
+
+        // Timer çalışmıyorsa butonu güncelle
+        if (!isTimerRunning()) {
+            tvReapplyRule.setText(getDefaultReapplyText(uvIndex));
+        }
     }
 
-    // Cache'den gelen veriyi ekrana yaz
     private void updateUIFromCache(UVWeatherCacheEntity cache) {
+        currentUvIndex = cache.uvIndex;
         tvUVValue.setText(String.format(Locale.US, "%.1f", cache.uvIndex));
         tvRiskLevel.setText(cache.riskLevel.toUpperCase());
         tvRiskSubtitle.setText(cache.message.toUpperCase());
@@ -86,6 +188,10 @@ public class MainActivity extends AppCompatActivity {
                 String.format(Locale.US, "%.0f°C", cache.temperature);
         tvWeather.setText(weatherText);
         tvLastUpdated.setText(cache.lastUpdated != null ? cache.lastUpdated : "--:--");
+
+        if (!isTimerRunning()) {
+            tvReapplyRule.setText(getDefaultReapplyText(cache.uvIndex));
+        }
     }
 
     private void loadData(LocationHelper locationHelper, NetworkHelper networkHelper,
@@ -107,8 +213,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 @Override
                 public void onCacheEmpty() {
-                    runOnUiThread(() ->
-                            android.util.Log.d("SOLARIA", "Offline, kayıtlı veri yok."));
+                    android.util.Log.d("SOLARIA", "Offline, kayıtlı veri yok.");
                 }
             });
             return;
@@ -143,8 +248,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             @Override
                             public void onCacheEmpty() {
-                                runOnUiThread(() ->
-                                        android.util.Log.d("SOLARIA", "Hata ve kayıtlı veri yok."));
+                                android.util.Log.d("SOLARIA", "Hata ve kayıtlı veri yok.");
                             }
                         });
                     }
