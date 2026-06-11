@@ -2,7 +2,6 @@ package com.example.solaria;
 import android.content.Intent;
 import android.view.View;
 import android.os.Bundle;
-import android.content.pm.PackageManager;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -15,13 +14,24 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    // UI elemanları
+    private TextView tvUVValue, tvRiskLevel, tvRiskSubtitle, tvGuidance, tvWeather, tvLastUpdated;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        View btnSettings = findViewById(R.id.btnSettings);
 
+        // UI elemanlarını bağla
+        tvUVValue = findViewById(R.id.tvUVValue);
+        tvRiskLevel = findViewById(R.id.tvRiskLevel);
+        tvRiskSubtitle = findViewById(R.id.tvRiskSubtitle);
+        tvGuidance = findViewById(R.id.tvGuidance);
+        tvWeather = findViewById(R.id.tvWeather);
+        tvLastUpdated = findViewById(R.id.tvLastUpdated);
+
+        View btnSettings = findViewById(R.id.btnSettings);
         btnSettings.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(intent);
@@ -33,12 +43,51 @@ public class MainActivity extends AppCompatActivity {
         ApiService apiService = new ApiService();
 
         loadData(locationHelper, networkHelper, apiService, cacheManager);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
     }
+
+    // API'den gelen veriyi ekrana yaz
+    private void updateUI(double uvIndex, double temperature, String weatherCondition,
+                          String riskLevel, String message, String reapplyRule) {
+        // UV değeri - 1 ondalık basamak
+        tvUVValue.setText(String.format(Locale.US, "%.1f", uvIndex));
+
+        // Risk seviyesi
+        tvRiskLevel.setText(riskLevel.toUpperCase());
+
+        // Mesaj (APPLY SUNSCREEN gibi)
+        tvRiskSubtitle.setText(message.toUpperCase());
+
+        // Reapply kuralı
+        tvGuidance.setText(reapplyRule);
+
+        // Hava durumu + sıcaklık
+        String weatherText = capitalize(weatherCondition) + "\n" +
+                String.format(Locale.US, "%.0f°C", temperature);
+        tvWeather.setText(weatherText);
+
+        // Son güncelleme saati
+        String time = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
+        tvLastUpdated.setText(time);
+    }
+
+    // Cache'den gelen veriyi ekrana yaz
+    private void updateUIFromCache(UVWeatherCacheEntity cache) {
+        tvUVValue.setText(String.format(Locale.US, "%.1f", cache.uvIndex));
+        tvRiskLevel.setText(cache.riskLevel.toUpperCase());
+        tvRiskSubtitle.setText(cache.message.toUpperCase());
+        tvGuidance.setText(cache.reapplyRule);
+        String weatherText = capitalize(cache.weatherCondition) + "\n" +
+                String.format(Locale.US, "%.0f°C", cache.temperature);
+        tvWeather.setText(weatherText);
+        tvLastUpdated.setText(cache.lastUpdated != null ? cache.lastUpdated : "--:--");
+    }
+
     private void loadData(LocationHelper locationHelper, NetworkHelper networkHelper,
                           ApiService apiService, CacheManager cacheManager) {
 
@@ -54,14 +103,12 @@ public class MainActivity extends AppCompatActivity {
             cacheManager.loadCachedUVData(new CacheManager.CacheReadCallback() {
                 @Override
                 public void onCacheLoaded(UVWeatherCacheEntity cache) {
-                    runOnUiThread(() -> {
-                        android.util.Log.d("SOLARIA", "Offline - UV: " + cache.uvIndex);
-                    });
+                    runOnUiThread(() -> updateUIFromCache(cache));
                 }
                 @Override
                 public void onCacheEmpty() {
                     runOnUiThread(() ->
-                            android.util.Log.d("SOLARIA", "You are offline and no saved data was found."));
+                            android.util.Log.d("SOLARIA", "Offline, kayıtlı veri yok."));
                 }
             });
             return;
@@ -82,22 +129,22 @@ public class MainActivity extends AppCompatActivity {
                                 weatherCondition, locationName,
                                 riskLevel, message, reapplyRule);
 
-                        runOnUiThread(() -> {
-                            android.util.Log.d("SOLARIA", "UV: " + uvIndex + " / " + riskLevel);
-                        });
+                        runOnUiThread(() ->
+                                updateUI(uvIndex, temperature, weatherCondition,
+                                        riskLevel, message, reapplyRule));
                     }
                     @Override
                     public void onFailure(String errorMessage) {
+                        android.util.Log.e("SOLARIA", "API hatası: " + errorMessage);
                         cacheManager.loadCachedUVData(new CacheManager.CacheReadCallback() {
                             @Override
                             public void onCacheLoaded(UVWeatherCacheEntity cache) {
-                                runOnUiThread(() ->
-                                        android.util.Log.d("SOLARIA", "Could not update. Showing saved data."));
+                                runOnUiThread(() -> updateUIFromCache(cache));
                             }
                             @Override
                             public void onCacheEmpty() {
                                 runOnUiThread(() ->
-                                        android.util.Log.d("SOLARIA", "Something went wrong and no saved data was found."));
+                                        android.util.Log.d("SOLARIA", "Hata ve kayıtlı veri yok."));
                             }
                         });
                     }
@@ -105,8 +152,7 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onLocationError(String errorMessage) {
-                runOnUiThread(() ->
-                        android.util.Log.d("SOLARIA", "Location error: " + errorMessage));
+                android.util.Log.e("SOLARIA", "Konum hatası: " + errorMessage);
             }
         });
     }
@@ -142,5 +188,10 @@ public class MainActivity extends AppCompatActivity {
         else if (uv < 6) return "Reapply every 3–4 hours.";
         else if (uv < 9) return "Reapply every 2 hours.";
         else return "Start the reapplication timer.";
+    }
+
+    private String capitalize(String text) {
+        if (text == null || text.isEmpty()) return text;
+        return text.substring(0, 1).toUpperCase() + text.substring(1);
     }
 }
