@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 
 public class ApiService {
 
-    private static final String API_KEY = "BuildConfig.OPENWEATHER_API_KEY";
+    private static final String API_KEY = "5dfbbb9b7db499ef1c6c8351e6be4428";
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
